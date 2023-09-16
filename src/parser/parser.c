@@ -136,28 +136,30 @@ stmt_t *parse_multiplicative_stmt(token_array_t *token_array, int *parsing_index
         // Increment the index to get the middle token
         (*parsing_index)++;
 
-        // Get the right token
         token_t op = token_array->tokens[*parsing_index];
+        
         // If the operator is not a multiply or divide operator, break
         if (!is_multiplicative_operator(op))
         {
             break;
         }
 
-        // Increment the index to get the left token
+        // Increment the index to get the right token
         (*parsing_index)++;
 
-        // Parse the left token
+        // Parse the right token
         stmt_t *right = parse_primary_stmt(token_array, parsing_index);
 
-        // Set to a binary expression
+        // Set to a binary expression if the result is not already one
         if (res->type == NODE_TYPE_REGULAR_EXPRESSION)
         {
             bin_expr_t *bin_expr = new_bin_expr(NULL, res->reg_expr, NULL);
             set_stmt_to_bin_expr(res, bin_expr);
         }
 
-        // Update the binary expression
+        // Update the binary expression so that the current binary expression
+        // moves to the left side, and the regular expression is set to the
+        // right. This allows for recursion with many binary operations.
         res->bin_expr = new_bin_expr(res->bin_expr, right->reg_expr, op.value);
     }
 
@@ -182,28 +184,31 @@ stmt_t *parse_additive_stmt(token_array_t *token_array, int *parsing_index)
     // While (true)
     for (;;)
     {
-        // Get the right token
+        // Get the middle token
         token_t op = token_array->tokens[*parsing_index];
+        
         // If the operator is not a plus or a minus
         if (!is_additive_operator(op))
         {
             break;
         }
 
-        // Increment the index to get the left token
+        // Increment the index to get the right token
         (*parsing_index)++;
 
-        // Parse the left token
+        // Parse the right token
         stmt_t *right = parse_primary_stmt(token_array, parsing_index);
 
-        // Set to a binary expression
+        // Set to a binary expression if the result is not already one
         if (res->type == NODE_TYPE_REGULAR_EXPRESSION)
         {
             bin_expr_t *bin_expr = new_bin_expr(NULL, res->reg_expr, NULL);
             set_stmt_to_bin_expr(res, bin_expr);
         }
 
-        // Update the binary expression
+        // Update the binary expression so that the current binary expression
+        // moves to the left side, and the regular expression is set to the
+        // right. This allows for recursion with many binary operations.
         res->bin_expr = new_bin_expr(res->bin_expr, right->reg_expr, op.value);
 
         // Increment the index to go back to the middle token
