@@ -1,6 +1,8 @@
 # simplc parser ![Stars](https://img.shields.io/github/stars/realTristan/simplc_parser?color=brightgreen) ![Watchers](https://img.shields.io/github/watchers/realTristan/simplc_parser?label=Watchers)
-Parser for my programming language, simp lang (simpl) made in C.
 ![9a9c2287-434e-4d05-b6c2-aee9e3849904](https://github.com/realTristan/simplc_parser/assets/75189508/4df1cb59-0742-4cb2-b40b-2b9212b1b16f)
+
+# About
+Simplc parser is a parser for my programming language, simp lang (simpl) made in C. The Typescript version, and complete parser and interpreter, can be found here: ![simpl](https://github.com/realTristan/simpl)
 
 # License
 MIT License
