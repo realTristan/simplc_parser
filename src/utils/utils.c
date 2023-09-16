@@ -83,7 +83,7 @@ int is_whitespace(char c)
 str_array_t split_str(char *s, char delim)
 {
     // Get the length of the src
-    long long len = strlen(s);
+    unsigned long len = strlen(s);
 
     // Create the result array
     str_array_t res = {malloc(sizeof(char *) * len), 0};
@@ -119,7 +119,7 @@ str_array_t split_str(char *s, char delim)
         }
     }
 
-    // Create a copy of the resut array with only the correct size
+    // Create a copy of the result array with only the correct size
     str_array_t final_res = {malloc(sizeof(char *) * res.size), res.size};
     for (unsigned int i = 0; i < res.size; i++)
     {

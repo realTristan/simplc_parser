@@ -21,14 +21,14 @@
  */
 int main(void)
 {
-    // Print repl intiialization notification
+    // Print repl initialization notification
     printf("\nrepl initialized. now coding in simpl.\n");
 
     // Create a new token array
     token_array_t *token_array = new_token_array();
 
     // While the user doesn't want to exit, tokenize the inputted src
-    while (1)
+    for (;;)
     {
         char src[100];
         printf("\n>> ");
