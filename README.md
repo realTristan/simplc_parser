@@ -4,6 +4,35 @@
 # About
 Simplc parser is a parser for my programming language, simp lang (simpl) made in C. The Typescript version, and complete parser and interpreter, can be found here: [simpl](https://github.com/realTristan/simpl)
 
+## Example Output
+```c
+repl initialized. now coding in simpl.
+
+>> x + 4
+Token (41): [x]
+Token (3): [+]
+Token (2): [4]
+Token (48): [EOF]
+
+program: {
+  type: "0",
+  body: [
+    bin_expr {
+      {
+        left: {
+          type: 5
+          value: "x"
+        },
+        op: "+"
+        right: {
+          type: 3
+          value: "4"
+        }
+      },
+    }
+  ]
+}
+```
 # License
 MIT License
 
