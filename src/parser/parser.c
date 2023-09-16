@@ -13,10 +13,15 @@
 #include <string.h>
 #include <stdio.h>
 
-// Function declarations
+// Function prototypes
 stmt_t *parse_stmt(token_array_t *token_array, int *parsing_index);
+stmt_t *parse_additive_stmt(token_array_t *token_array, int *parsing_index);
+stmt_t *parse_multiplicative_stmt(token_array_t *token_array, int *parsing_index);
+stmt_t *parse_primary_stmt(token_array_t *token_array, int *parsing_index);
+stmt_t *parse_primary_stmt_handle_paren(token_array_t *token_array, int *parsing_index);
+program_t *parse_program(token_array_t *token_array);
+void push_back_stmt(program_t *program, stmt_t *stmt);
 
-#define f parse_primary_stmt_handle_paren
 /**
  * @brief Handles a parenthesized expression.
  *
@@ -33,18 +38,16 @@ stmt_t *parse_primary_stmt_handle_paren(token_array_t *token_array, int *parsing
     stmt_t *stmt = parse_stmt(token_array, parsing_index);
 
     // If the right token is not a right paranthesis, throw an error
-    if (token_array->tokens[*parsing_index].type != TOKEN_TYPE_RIGHT_PAREN)
+    if (token_array->items[*parsing_index].type != TOKEN_TYPE_RIGHT_PAREN)
     {
-        printf("Expected a right paranthesis, got %s\n", token_array->tokens[*parsing_index].value);
+        printf("Expected a right paranthesis, got %s\n", token_array->items[*parsing_index].value);
         exit(1);
     }
 
     // Return the statement
     return stmt;
 }
-#undef f
 
-#define f parse_primary_stmt
 /**
  * @brief Parses a primary expression.
  *
@@ -55,7 +58,7 @@ stmt_t *parse_primary_stmt_handle_paren(token_array_t *token_array, int *parsing
 stmt_t *parse_primary_stmt(token_array_t *token_array, int *parsing_index)
 {
     // Get the right token
-    token_t token = token_array->tokens[*parsing_index];
+    token_t token = token_array->items[*parsing_index];
 
     // Check the token type
     switch (token.type)
@@ -87,9 +90,7 @@ stmt_t *parse_primary_stmt(token_array_t *token_array, int *parsing_index)
         return new_reg_expr_stmt(NODE_TYPE_UNKNOWN, NULL);
     }
 }
-#undef f
 
-#define f is_multiplicative_operator
 /**
  * @brief Checks if the token is a multiplicative operator.
  *
@@ -100,9 +101,7 @@ int is_multiplicative_operator(token_t token)
 {
     return token.type == TOKEN_TYPE_BINARY_OPERATOR && (strcmp(token.value, "*") == 0 || strcmp(token.value, "/") == 0) ? 1 : 0;
 }
-#undef f
 
-#define f is_additive_operator
 /**
  * @brief Checks if the token is an additive operator.
  *
@@ -113,9 +112,7 @@ int is_additive_operator(token_t token)
 {
     return token.type == TOKEN_TYPE_BINARY_OPERATOR && (strcmp(token.value, "+") == 0 || strcmp(token.value, "-") == 0) ? 1 : 0;
 }
-#undef f
 
-#define f parse_multiplicative_stmt
 /**
  * @brief Parses a multiplicative expression.
  *
@@ -134,7 +131,7 @@ stmt_t *parse_multiplicative_stmt(token_array_t *token_array, int *parsing_index
         // Increment the index to get the middle token
         (*parsing_index)++;
 
-        token_t op = token_array->tokens[*parsing_index];
+        token_t op = token_array->items[*parsing_index];
 
         // If the operator is not a multiply or divide operator, break
         if (!is_multiplicative_operator(op))
@@ -164,9 +161,7 @@ stmt_t *parse_multiplicative_stmt(token_array_t *token_array, int *parsing_index
     // Return the result statement
     return res;
 }
-#undef f
 
-#define f parse_additive_stmt
 /**
  * @brief Parses an additive expression.
  *
@@ -183,7 +178,7 @@ stmt_t *parse_additive_stmt(token_array_t *token_array, int *parsing_index)
     for (;;)
     {
         // Get the middle token
-        token_t op = token_array->tokens[*parsing_index];
+        token_t op = token_array->items[*parsing_index];
 
         // If the operator is not a plus or a minus
         if (!is_additive_operator(op))
@@ -220,9 +215,7 @@ stmt_t *parse_additive_stmt(token_array_t *token_array, int *parsing_index)
     // Return the result statement
     return res;
 }
-#undef f
 
-#define f parse_stmt
 /**
  * @brief Parses a statement
  *
@@ -234,9 +227,7 @@ stmt_t *parse_stmt(token_array_t *token_array, int *parsing_index)
 {
     return parse_additive_stmt(token_array, parsing_index);
 }
-#undef f
 
-#define f push_back_stmt
 /**
  * @brief Pushes back a statement to the program body.
  *
@@ -246,12 +237,10 @@ stmt_t *parse_stmt(token_array_t *token_array, int *parsing_index)
  */
 void push_back_stmt(program_t *program, stmt_t *stmt)
 {
-    program->body.values[program->body.size] = stmt;
+    program->body.items[program->body.size] = stmt;
     program->body.size++;
 }
-#undef f
 
-#define f parse_program
 /**
  * @brief Parses a program.
  *
@@ -276,7 +265,6 @@ program_t *parse_program(token_array_t *token_array)
     // Return the program
     return program;
 }
-#undef f
 
 /**
  * @brief Parses tokens.

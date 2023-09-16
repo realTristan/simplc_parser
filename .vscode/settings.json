@@ -1,5 +1,6 @@
 {
   "files.associations": {
-    "token_array.h": "c"
+    "token_array.h": "c",
+    "parser.h": "c"
   }
 }

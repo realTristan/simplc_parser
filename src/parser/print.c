@@ -6,7 +6,9 @@
 
 #include <stdio.h>
 
-#define f build_left_padding
+// Function prototypes
+char *build_left_padding(int l_padding);
+void print_bin_expr(bin_expr_t *bin_expr, int l_padding);
 
 /**
  * @brief Builds the padding
@@ -24,7 +26,6 @@ char *build_left_padding(int l_padding)
     padding[l_padding] = '\0';
     return padding;
 }
-#undef f
 
 /**
  * @brief Prints a binary expression.
@@ -71,7 +72,7 @@ void print_program(program_t *program)
     for (int i = 0; i < program->body.size; i++)
     {
         // Print the statement
-        stmt_t *stmt = program->body.values[i];
+        stmt_t *stmt = program->body.items[i];
         if (stmt->type == NODE_TYPE_REGULAR_EXPRESSION)
         {
             printf("    {\n      stmt_type: %d", stmt->type);

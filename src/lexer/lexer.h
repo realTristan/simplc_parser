@@ -8,10 +8,10 @@
 /**
  * @brief Tokenizes a string.
  *
- * @param tokens The tokens array.
+ * @param token_array The tokens array.
  * @param src The string to tokenize.
  * @return void
  */
-void tokenize(token_array_t *tokens, char *src);
+void tokenize(token_array_t *token_array, char *src);
 
 #endif // LEXER_H

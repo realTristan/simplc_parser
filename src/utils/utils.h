@@ -4,13 +4,18 @@
 #include <stdlib.h>
 
 /**
- * Split Array
+ * @brief String type
  */
-typedef struct split_array_t
+typedef char *string;
+
+/**
+ * @brief String array type
+ */
+typedef struct str_array_t
 {
-    char **values;
+    string *items;
     size_t size;
-} split_array_t;
+} str_array_t;
 
 /**
  * @brief Checks if a character is an integer.
@@ -43,9 +48,8 @@ int is_whitespace(char c);
  *
  * @param s The string to split.
  * @param delim The delimiter to split by.
- * @param size The amount of splits.
- * @return char** The split string.
+ * @return string* The array of strings from the split.
  */
-split_array_t split_str(char *s, char delim);
+str_array_t split_str(char *s, char delim);
 
 #endif // UTILS_H

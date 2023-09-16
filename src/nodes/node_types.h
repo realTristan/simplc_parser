@@ -114,13 +114,13 @@ typedef struct stmt_t
 
 /**
  * @brief Statement Array
- * 
+ *
  * @var values The values (stmt_t)
  * @var size The size (size_t)
-*/
+ */
 typedef struct stmt_array_t
 {
-    stmt_t **values;
+    stmt_t **items;
     size_t size;
 } stmt_array_t;
 

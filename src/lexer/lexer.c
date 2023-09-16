@@ -9,17 +9,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Function prototypes
+void tokenize(token_array_t *token_array, char *src);
+
 /**
  * @brief Tokenizes a string.
  *
- * @param tokens The tokens array.
+ * @param token_array The tokens array.
  * @param src The string to tokenize.
  * @return void
  */
-void tokenize(token_array_t *tokens, char *src)
+void tokenize(token_array_t *token_array, char *src)
 {
     // Split the src
-    // split_array_t split_tokens = split_str(src, ' ');
+    // str_array_t split_tokens = split_str(src, ' ');
 
     // Get the length of the src
     const size_t srclen = strlen(src);
@@ -35,19 +38,19 @@ void tokenize(token_array_t *tokens, char *src)
         case '\t':
             continue;
         case '(':
-            push_back_token(tokens, new_token_char(TOKEN_TYPE_LEFT_PAREN, '('));
+            push_back_token(token_array, new_token_char(TOKEN_TYPE_LEFT_PAREN, '('));
             break;
         case ')':
-            push_back_token(tokens, new_token_char(TOKEN_TYPE_RIGHT_PAREN, ')'));
+            push_back_token(token_array, new_token_char(TOKEN_TYPE_RIGHT_PAREN, ')'));
             break;
         case '=':
-            push_back_token(tokens, new_token_char(TOKEN_TYPE_ASSIGN, '='));
+            push_back_token(token_array, new_token_char(TOKEN_TYPE_ASSIGN, '='));
             break;
         case '+':
         case '-':
         case '*':
         case '/':
-            push_back_token(tokens, new_token_char(TOKEN_TYPE_BINARY_OPERATOR, src[i]));
+            push_back_token(token_array, new_token_char(TOKEN_TYPE_BINARY_OPERATOR, src[i]));
             break;
         default:
         {
@@ -75,15 +78,15 @@ void tokenize(token_array_t *tokens, char *src)
                 // Push back the identifier
                 if (strcmp(tmp, "let") == 0)
                 {
-                    push_back_token(tokens, new_token(TOKEN_TYPE_LET, tmp));
+                    push_back_token(token_array, new_token(TOKEN_TYPE_LET, tmp));
                 }
                 else if (strcmp(tmp, "null") == 0)
                 {
-                    push_back_token(tokens, new_token(TOKEN_TYPE_NULL, tmp));
+                    push_back_token(token_array, new_token(TOKEN_TYPE_NULL, tmp));
                 }
                 else
                 {
-                    push_back_token(tokens, new_token(TOKEN_TYPE_IDENTIFIER, tmp));
+                    push_back_token(token_array, new_token(TOKEN_TYPE_IDENTIFIER, tmp));
                 }
             }
             else if (is_int_char(src[i]))
@@ -108,7 +111,7 @@ void tokenize(token_array_t *tokens, char *src)
                 tmp[index] = '\0';
 
                 // Push back the number
-                push_back_token(tokens, new_token(TOKEN_TYPE_NUMBER, tmp));
+                push_back_token(token_array, new_token(TOKEN_TYPE_NUMBER, tmp));
             }
 
             else
@@ -122,7 +125,7 @@ void tokenize(token_array_t *tokens, char *src)
     }
 
     // Push back the final EOF token.
-    push_back_token(tokens, new_token(TOKEN_TYPE_EOF, "EOF"));
+    push_back_token(token_array, new_token(TOKEN_TYPE_EOF, "EOF"));
 }
 
 #endif // LEXER_C

@@ -4,6 +4,10 @@
 #include "token.h"
 #include <stdlib.h>
 
+// Function prototypes
+token_t new_token(token_type type, char *value);
+token_t new_token_char(token_type type, char value);
+
 /**
  * @brief Makes a token.
  *

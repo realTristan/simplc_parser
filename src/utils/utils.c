@@ -5,13 +5,18 @@
 #include <stdlib.h>
 
 /**
- * Split Array
+ * @brief String type
  */
-typedef struct split_array_t
+typedef char *string;
+
+/**
+ * @brief String array type
+ */
+typedef struct str_array_t
 {
-    char **values;
+    string *items;
     size_t size;
-} split_array_t;
+} str_array_t;
 
 /**
  * @brief Checks if a character is an integer.
@@ -73,15 +78,15 @@ int is_whitespace(char c)
  *
  * @param s The string to split.
  * @param delim The delimiter to split by.
- * @return split_array_t The split string.
+ * @return str_array_t The split string.
  */
-split_array_t split_str(char *s, char delim)
+str_array_t split_str(char *s, char delim)
 {
     // Get the length of the src
     long long len = strlen(s);
 
     // Create the result array
-    split_array_t res = {malloc(sizeof(char *) * len), 0};
+    str_array_t res = {malloc(sizeof(char *) * len), 0};
 
     // Store the last index (for determining splits)
     int last_index = 0;
@@ -104,7 +109,7 @@ split_array_t split_str(char *s, char delim)
             tmp[i - last_index + is_last] = '\0';
 
             // Add the tmp to the result array
-            res.values[res.size] = tmp;
+            res.items[res.size] = tmp;
 
             // Update the last index
             last_index = i + 1;
@@ -115,10 +120,10 @@ split_array_t split_str(char *s, char delim)
     }
 
     // Create a copy of the resut array with only the correct size
-    split_array_t final_res = {malloc(sizeof(char *) * res.size), res.size};
+    str_array_t final_res = {malloc(sizeof(char *) * res.size), res.size};
     for (unsigned int i = 0; i < res.size; i++)
     {
-        final_res.values[i] = res.values[i];
+        final_res.items[i] = res.items[i];
     }
 
     // Return the final result

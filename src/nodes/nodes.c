@@ -5,6 +5,15 @@
 
 #include <stdlib.h>
 
+// Function prototypes
+program_t *new_program();
+reg_expr_t *new_reg_expr(node_type type, char *value);
+bin_expr_t *new_bin_expr(bin_expr_t *left, reg_expr_t *right, char *op);
+stmt_t *new_bin_expr_stmt(bin_expr_t *left, reg_expr_t *right, char *op);
+stmt_t *new_reg_expr_stmt(node_type type, char *value);
+void set_stmt_to_bin_expr(stmt_t *stmt, bin_expr_t *bin_expr);
+void set_stmt_to_reg_expr(stmt_t *stmt, reg_expr_t *reg_expr);
+
 /**
  * @brief Creates a new program
  *
