@@ -5,8 +5,6 @@
 
 #include <stdlib.h>
 
-#define NULL ((void *)0)
-
 /**
  * @brief Creates a new program
  *

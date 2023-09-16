@@ -35,7 +35,7 @@ int is_alpha_char(char c);
 /**
  * Check if the character is a whitespace character.
  * @return int
-*/
+ */
 int is_whitespace(char c);
 
 /**
@@ -47,13 +47,5 @@ int is_whitespace(char c);
  * @return char** The split string.
  */
 split_array_t split_str(char *s, char delim);
-
-/**
- * Free the split array.
- * 
- * @param split_array The split array.
- * @return void
- */
-void free_split_array(split_array_t split_array);
 
 #endif // UTILS_H

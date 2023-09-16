@@ -13,8 +13,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#define NULL ((void *)0)
-
 // Function declarations
 stmt_t *parse_stmt(token_array_t *token_array, int *parsing_index);
 
@@ -137,7 +135,7 @@ stmt_t *parse_multiplicative_stmt(token_array_t *token_array, int *parsing_index
         (*parsing_index)++;
 
         token_t op = token_array->tokens[*parsing_index];
-        
+
         // If the operator is not a multiply or divide operator, break
         if (!is_multiplicative_operator(op))
         {
@@ -186,7 +184,7 @@ stmt_t *parse_additive_stmt(token_array_t *token_array, int *parsing_index)
     {
         // Get the middle token
         token_t op = token_array->tokens[*parsing_index];
-        
+
         // If the operator is not a plus or a minus
         if (!is_additive_operator(op))
         {

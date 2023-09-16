@@ -62,25 +62,10 @@ int is_alpha_char(char c)
 /**
  * Check if the character is a whitespace character.
  * @return int
-*/
+ */
 int is_whitespace(char c)
 {
     return c == ' ' || c == '\n' || c == '\t' || c == '\r';
-}
-
-/**
- * Free the split array.
- * 
- * @param split_array The split array.
- * @return void
- */
-void free_split_array(split_array_t split_array)
-{
-    for (unsigned int i = 0; i < split_array.size; i++)
-    {
-        free(split_array.values[i]);
-    }
-    free(split_array.values);
 }
 
 /**

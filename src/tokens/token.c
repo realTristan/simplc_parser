@@ -15,6 +15,13 @@ token_t new_token(token_type type, char *value)
 {
     return (token_t){type, value};
 }
+
+/**
+ * @brief Makes a token with a single character value.
+ * @param type The token type.
+ * @param value The token value.
+ * @return token_t The token.
+ */
 token_t new_token_char(token_type type, char value)
 {
     char *str = malloc(sizeof(char) * 2);
